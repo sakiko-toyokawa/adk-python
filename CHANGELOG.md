@@ -4,8 +4,7 @@
 
 ### Highlights
 
-A correctness and hardening release: most of the work went into what an agent
-sends to the model, what it exposes to its callers, and what it installs.
+A correctness and hardening release: most of the work went into what an agent sends to the model, what it exposes to its callers, and what it installs.
 
 * **Models declare their own capabilities**: an agent pairs an output schema with tools when the model actually supports it, instead of ADK inferring support from the model id. ([2aff82c](https://github.com/google/adk-python/commit/2aff82c30923e5f7df5ce4101db52bce82740329), [dc5dbfa](https://github.com/google/adk-python/commit/dc5dbfa2e475f2461177e80f7fa28c96a2bc3592))
 * **Tools can return media**: a tool's function response now carries images and other media straight back to the model. ([df9d6de](https://github.com/google/adk-python/commit/df9d6dec58f4cb22a1010b72e9fd8d347ce8145a))
