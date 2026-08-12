@@ -2,10 +2,27 @@
 
 ## [2.7.0](https://github.com/google/adk-python/compare/v2.6.3...v2.7.0) (2026-08-12)
 
+### Highlights
+
+A correctness and hardening release: most of the work went into what an agent
+sends to the model, what it exposes to its callers, and what it installs.
+
+* **Models declare their own capabilities**: an agent pairs an output schema with tools when the model actually supports it, instead of ADK inferring support from the model id. ([2aff82c](https://github.com/google/adk-python/commit/2aff82c30923e5f7df5ce4101db52bce82740329), [dc5dbfa](https://github.com/google/adk-python/commit/dc5dbfa2e475f2461177e80f7fa28c96a2bc3592))
+* **Tools can return media**: a tool's function response now carries images and other media straight back to the model. ([df9d6de](https://github.com/google/adk-python/commit/df9d6dec58f4cb22a1010b72e9fd8d347ce8145a))
+* **Conversation history keeps what Gemini needs**: thought signatures, server-side tool call parts, and every result of a parallel function call survive the round trip. ([d4ed347](https://github.com/google/adk-python/commit/d4ed3475397d16f9eb8d851f8945a6ed8121b6a8), [e908137](https://github.com/google/adk-python/commit/e908137125f9e14b3061f45f34f5379b48693313), [93dff41](https://github.com/google/adk-python/commit/93dff41417e81bad6150bd91acf1d73dedc298dc))
+* **Per-app and per-user isolation**: artifact reads, Vertex RAG retrieval, the in-memory memory store, and LangGraph checkpoints are all scoped by app and user. ([c27d868](https://github.com/google/adk-python/commit/c27d8688ed9ea619587ad96cbfd641c34dd7340c), [fbeab00](https://github.com/google/adk-python/commit/fbeab000103fb67440b2ccbbc566a1b44723e643), [fd8f7eb](https://github.com/google/adk-python/commit/fd8f7eb2a31e62c892751943b941e141d2e87f59), [19e2a72](https://github.com/google/adk-python/commit/19e2a7283f1de16e206f84ade687f9f16f0274cb))
+* **Faster startup and hot paths**: `import google.adk` does less work, and the request path avoids Pydantic round-trips and quadratic streaming accumulation. ([8806dc2](https://github.com/google/adk-python/commit/8806dc2bd8fb37004dee9ca50d9e774481f89afb), [9e1adde](https://github.com/google/adk-python/commit/9e1addedfff7e35e95a2ad120c8b30fe543af04c), [36fd2c8](https://github.com/google/adk-python/commit/36fd2c8e0cf9dddec66bb0c109518cdc2fbdb3b6))
+
+#### Breaking changes
+
+* **`pyarrow` left the `gcp` extra**: it lives in the new `bigquery-analytics` extra, which takes roughly 50 MB off `pip install google-adk[gcp]`. If you use `BigQueryAgentAnalyticsPlugin`, install `google-adk[bigquery-analytics]`. ([ac71709](https://github.com/google/adk-python/commit/ac717091f6644f348c6f7e65a43cc0475a28fe45))
 
 ### ⚠ BREAKING CHANGES
 
 * **deps:** move pyarrow out of the gcp extra
+
+<details>
+<summary>All 188 changes</summary>
 
 ### Features
 
@@ -213,6 +230,8 @@
 
 * **deps:** move pyarrow out of the gcp extra ([ac71709](https://github.com/google/adk-python/commit/ac717091f6644f348c6f7e65a43cc0475a28fe45))
 * release this candidate as 2.7.0 ([e22b75a](https://github.com/google/adk-python/commit/e22b75aac1b86c9d264cb3def4965df218acf471))
+
+</details>
 
 ## [2.6.3](https://github.com/google/adk-python/compare/v2.6.2...v2.6.3) (2026-08-07)
 
